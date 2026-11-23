@@ -1,0 +1,7 @@
+# 行从物理底部数起，列从左侧数起，均为零起点。
+# 原文确认顶层 40 个。5×8 是替代料箱布局，可按实物调整。
+source_rows: 5
+source_columns: 8
+tray_rows: 9
+tray_columns: 15
+jitter_cm: 11

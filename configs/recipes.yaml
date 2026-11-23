@@ -1,0 +1,125 @@
+# 步数都以优化器更新计。默认 4 卡单机，microbatch=8。
+# 正式训练前可用 --updates 20 --warmup 2 --decay 4 --eval-every 0 --save-every 0 做短跑。
+baseline: &baseline
+  updates: 50000
+  ebs: 256
+  microbatch: 8
+  gpus: 4
+  lr: 0.00005
+  warmup: 1500
+  decay: 10000
+  min_ratio: 0.05
+  save_every: 10000
+  eval_every: 10000
+
+ladder:
+  <<: *baseline
+  updates: 210000
+  microbatch: 32
+  gpus: 8
+  workers: 4
+
+hq:
+  <<: *baseline
+  updates: 10000
+  decay: 2000
+  save_every: 2500
+  eval_every: 1000
+
+hq-continue:
+  <<: *baseline
+  updates: 5000
+  lr: 0.00002
+  warmup: 500
+  decay: 1000
+  save_every: 2500
+  eval_every: 1000
+
+dagger:
+  <<: *baseline
+  updates: 5000
+  warmup: 500
+  decay: 1000
+  save_every: 5000
+  eval_every: 1000
+
+lora64-local:
+  <<: *baseline
+  microbatch: 8
+  gpus: 1
+  lr: 0.0005
+  workers: 4
+  lora_rank: 64
+
+lora64-ebs64:
+  <<: *baseline
+  updates: 200000
+  ebs: 64
+  lr: 0.00025
+  decay: 40000
+  lora_rank: 64
+
+lora256:
+  <<: *baseline
+  updates: 100000
+  ebs: 64
+  lr: 0.00025
+  decay: 20000
+  save_every: 5000
+  eval_every: 2500
+  lora_rank: 256
+
+scene-diverse:
+  <<: *baseline
+
+scene-lightbox:
+  <<: *baseline
+
+operator-vr:
+  <<: *baseline
+
+operator-gello:
+  <<: *baseline
+
+operator-mix:
+  <<: *baseline
+
+data-4h:
+  <<: *baseline
+
+lr-low:
+  <<: *baseline
+  lr: 0.00002
+
+lr-high:
+  <<: *baseline
+  lr: 0.00010
+
+ebs64:
+  <<: *baseline
+  ebs: 64
+  updates: 200000
+  decay: 40000
+  lr: 0.000025
+
+ebs2048:
+  <<: *baseline
+  ebs: 2048
+  updates: 6250
+  decay: 1250
+  lr: 0.000141
+  save_every: 1250
+  eval_every: 1250
+
+augmented:
+  <<: *baseline
+  augmentation: true
+
+relative:
+  <<: *baseline
+  relative: true
+
+paligemma-init:
+  <<: *baseline
+  updates: 100000
+  ebs: 128

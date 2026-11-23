@@ -1,0 +1,35 @@
+robot:
+  id: dk1-unboxing
+  left_arm_port: /dev/serial/by-id/REPLACE_LEFT_FOLLOWER
+  right_arm_port: /dev/serial/by-id/REPLACE_RIGHT_FOLLOWER
+  control_mode: impedance  # pos_vel 时才使用下方的速度比例
+  joint_velocity_scaling: 0.10
+  max_gripper_torque: 0.30
+  disable_torque_on_disconnect: false
+cameras:
+  left_wrist: /dev/v4l/by-id/REPLACE_LEFT_CAMERA
+  right_wrist: /dev/v4l/by-id/REPLACE_RIGHT_CAMERA
+  top: /dev/v4l/by-id/REPLACE_TOP_CAMERA
+camera_fps: 50
+camera_max_age_ms: 100
+camera_max_skew_ms: 45
+# 按公开数据的向量顺序。关节用 rad，夹爪用 [0,1]。
+# 必须基于现场静态校准、料箱/托盘位置和双臂干涉检查填写。
+limits:
+  lower: []
+  upper: []
+  max_jump: []
+  max_tracking_error: []
+teleop:
+  gello:
+    id: dk1-gello
+    left_arm_port: /dev/serial/by-id/REPLACE_LEFT_LEADER
+    right_arm_port: /dev/serial/by-id/REPLACE_RIGHT_LEADER
+  vr:
+    id: dk1-quest
+    ws_url: ws://127.0.0.1:8443/ws
+    urdf_path: /absolute/path/trlc-dk1/urdf/follower/TRLC-DK1-Follower.urdf
+    # 实测填入 3×3 旋转和左右六关节参考姿态。
+    r_calib: []
+    rest_qpos_left: []
+    rest_qpos_right: []
